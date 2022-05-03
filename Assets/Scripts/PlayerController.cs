@@ -11,7 +11,8 @@ public class PlayerController : MonoBehaviour
 
     private float acceleration = 1;
 
-    private float jumpForce = 10;
+    [SerializeField]
+    private float jumpForce = 20;
 
     private float jumpCounter;
 
@@ -55,6 +56,8 @@ public class PlayerController : MonoBehaviour
 
     private float moveSpeedY;
 
+    private GameObject spawnPoint;
+
     //[SerializeField]
     //private GameObject start;
 
@@ -64,6 +67,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        spawnPoint = GameObject.FindGameObjectWithTag("SpawnPoint");
 
         //rb.velocity = new Vector3(0, 0, 0);
 
@@ -88,7 +93,7 @@ public class PlayerController : MonoBehaviour
         //isGrounded = Physics.CheckSphere(GroundCheck.position, 0.4f, GroundLayer);
 
 
-        Vector2 middle = new Vector2(612.75f, 347.15f);
+        Vector2 middle = new Vector2(612.75f, 347.375f);
 
         Vector2 mousePos = Input.mousePosition;
 
@@ -135,7 +140,22 @@ public class PlayerController : MonoBehaviour
             
         }
 
-        
+        if (isGrounded == false)
+        {
+
+            rb.AddForce(Vector3.down * 20, ForceMode.Acceleration);
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+
+            rb.AddForce(camera1.transform.forward * 5000 * Time.deltaTime , ForceMode.VelocityChange);
+
+        }
+
+
+
 
 
         
@@ -159,25 +179,25 @@ public class PlayerController : MonoBehaviour
         //25
         //15
 
-        if (isGrounded)
+        if (isGrounded && Input.GetMouseButton(0))
         {
 
-            if (y > 347.15)
+            if (y > 347.375)
             {
 
 
 
-                rb.AddForce(camera1.transform.forward * distanceY * 25 * Time.deltaTime);
+                rb.AddForce(camera1.transform.forward * distanceY * 55 * Time.deltaTime);
 
 
                 acceleration = acceleration + 0.005f;
 
             }
 
-            else if (y < 347.15)
+            else if (y < 346.125)
             {
 
-                rb.AddForce(-camera1.transform.forward * distanceY * 25 * Time.deltaTime);
+                rb.AddForce(-camera1.transform.forward * distanceY * 55 * Time.deltaTime);
 
 
                 acceleration = acceleration + 0.005f;
@@ -190,7 +210,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-                rb.AddForce(camera1.transform.right * distanceX * 15 * Time.deltaTime);
+                rb.AddForce(camera1.transform.right * distanceX * 45 * Time.deltaTime);
 
 
                 acceleration = acceleration + 0.005f;
@@ -200,7 +220,7 @@ public class PlayerController : MonoBehaviour
             else if (x < 612.75)
             {
 
-                rb.AddForce(-camera1.transform.right * distanceX * 15 * Time.deltaTime);
+                rb.AddForce(-camera1.transform.right * distanceX * 45 * Time.deltaTime);
 
 
                 acceleration = acceleration + 0.005f;
@@ -223,7 +243,7 @@ public class PlayerController : MonoBehaviour
             if (transform.position.y < -7)
             {
 
-                transform.position = new Vector3(58, 7, -965);
+                transform.position = spawnPoint.transform.position;
 
                 rb.velocity = new Vector3(0, 0, 0);
 
@@ -239,14 +259,7 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
 
-        if (other.gameObject.CompareTag("Warp"))
-        {
-
-            rb.velocity = new Vector3(0, 0, 0);
-
-            transform.position = new Vector3(58, 7, -965 );
-
-        }
+        
 
         if (other.gameObject.CompareTag("Ground"))
         {
@@ -256,44 +269,39 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        //else
-        //{
+        
 
-        //    isGrounded = false;
-
-
-        //}
-
-        if (other.gameObject.CompareTag("Tele"))
-        {
-
-            rb.velocity = new Vector3(0, 0, 0);
-
-            transform.position = end.transform.position;
-
-
-            
-
-        }
+        
 
 
 
     }
 
+    private void OnCollisionExit(Collision collision)
+    {
+
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+
+            isGrounded = false;
+
+        }
+
+
     
+    }
 
-    ////private void OnCollisionStay(Collision collision)
-    ////{
-    //    //if (collision.contacts[0].normal.y > 0.8)
-    //        isGrounded = true;
-    //}
+    private void OnCollisionStay(Collision collision)
+    {
 
-    //private void OnCollisionExit(Collision collision)
-    //{
-    //    isGrounded = false;
-    //}
+        if (collision.gameObject.CompareTag("Ground"))
+        {
 
+            isGrounded = true;
 
+        }
+
+    }
 
 
 

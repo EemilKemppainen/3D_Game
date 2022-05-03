@@ -41,8 +41,8 @@ public class Camera : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         transform.Rotate(Vector3.up, horizontalInput * turnSpeed * Time.deltaTime);
 
-        float verticalInput = Input.GetAxis("Vertical");
-        transform.Rotate(Vector3.right, verticalInput * turnSpeed * Time.deltaTime);
+        //float verticalInput = Input.GetAxis("Vertical");
+        //transform.Rotate(Vector3.right, verticalInput * turnSpeed * Time.deltaTime);
 
         transform.position = player.transform.position;
 
