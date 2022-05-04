@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class PlayerController : MonoBehaviour
 {
     public GameObject camera1;
@@ -58,11 +59,9 @@ public class PlayerController : MonoBehaviour
 
     private GameObject spawnPoint;
 
-    //[SerializeField]
-    //private GameObject start;
+    float screenWidth = UnityEngine.Screen.width;
 
-    //[SerializeField]
-    //private GameObject end;
+    float screenHeight = UnityEngine.Screen.height;
 
     // Start is called before the first frame update
     void Start()
@@ -80,7 +79,7 @@ public class PlayerController : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
 
-        
+       
 
     }
 
@@ -88,12 +87,15 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        
-
-        //isGrounded = Physics.CheckSphere(GroundCheck.position, 0.4f, GroundLayer);
 
 
-        Vector2 middle = new Vector2(612.75f, 347.375f);
+        float middleX = screenWidth / 2;
+
+        float middleY = screenHeight / 2;
+
+        //612.75f, 374.375f
+
+        Vector2 middle = new Vector2(middleX, middleY);
 
         Vector2 mousePos = Input.mousePosition;
 
@@ -182,7 +184,7 @@ public class PlayerController : MonoBehaviour
         if (isGrounded && Input.GetMouseButton(0))
         {
 
-            if (y > 347.375)
+            if (y > middleY)
             {
 
 
@@ -194,7 +196,7 @@ public class PlayerController : MonoBehaviour
 
             }
 
-            else if (y < 346.125)
+            else if (y < middleY)
             {
 
                 rb.AddForce(-camera1.transform.forward * distanceY * 55 * Time.deltaTime);
@@ -205,7 +207,7 @@ public class PlayerController : MonoBehaviour
 
             }
 
-            if (x > 612.75)
+            if (x > middleX)
             {
 
 
@@ -217,7 +219,7 @@ public class PlayerController : MonoBehaviour
 
             }
 
-            else if (x < 612.75)
+            else if (x < middleX)
             {
 
                 rb.AddForce(-camera1.transform.right * distanceX * 45 * Time.deltaTime);

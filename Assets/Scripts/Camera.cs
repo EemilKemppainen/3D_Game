@@ -21,7 +21,7 @@ public class Camera : MonoBehaviour
     void Awake()
     {
 
-        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.lockState = CursorLockMode.Locked;
 
         
 
