@@ -5,9 +5,9 @@ using UnityEngine;
 public class Camera : MonoBehaviour
 {
 
-    private float mouseTurnSpeed = 20f;
+    private float mouseTurnSpeed = 1000f;
 
-    private float turnSpeed = 200f;
+    private float turnSpeed = 500f;
 
     public GameObject player;
 
@@ -55,12 +55,12 @@ public class Camera : MonoBehaviour
             //transform.rotation = Quaternion.Euler(X, Y, 0);
         }
 
-        if (Input.GetMouseButton(2))
+        if (Input.GetMouseButton(2) || Input.GetMouseButton(0))
         {
 
             Cursor.lockState = CursorLockMode.Locked;
 
-            transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * mouseTurnSpeed, 0));
+            transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * mouseTurnSpeed * Time.deltaTime, 0));
 
         }
 

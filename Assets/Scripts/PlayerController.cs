@@ -63,6 +63,17 @@ public class PlayerController : MonoBehaviour
 
     float screenHeight = UnityEngine.Screen.height;
 
+    private float playerY;
+
+    public Text playerYText;
+
+    [SerializeField]
+    private float offSetX;
+
+    [SerializeField]
+    private float offSetY;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -86,8 +97,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+        playerY = transform.position.y;
 
-
+        playerYText.text = "Y" + playerY;
 
         float middleX = screenWidth / 2;
 
@@ -120,21 +133,21 @@ public class PlayerController : MonoBehaviour
 
         distanceXText.text = "Distance" + distanceX;
 
-        moveSpeedX = distanceX * 10;
+        moveSpeedX = distanceX * 55;
 
-        moveSpeedY = distanceY * 20;
+        moveSpeedY = distanceY * 55;
 
         SpeedTextX.text = "Speed" + moveSpeedX;
 
         SpeedTextY.text = "Speed" + moveSpeedY;
 
-        if (Input.GetKey(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
 
-            
 
+                rb.AddForce(Vector3.up * 20 , ForceMode.Impulse);
 
-                rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+                //rb.velocity = new Vector3(rb.velocity.x, 1000 * Time.deltaTime, rb.velocity.z);
 
                 isGrounded = false;
 
@@ -145,16 +158,16 @@ public class PlayerController : MonoBehaviour
         if (isGrounded == false)
         {
 
-            rb.AddForce(Vector3.down * 20, ForceMode.Acceleration);
+            rb.AddForce(Vector3.down * 1000 * Time.deltaTime, ForceMode.Acceleration);
 
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
+        //if (Input.GetKeyDown(KeyCode.Q))
+        //{
 
-            rb.AddForce(camera1.transform.forward * 5000 * Time.deltaTime , ForceMode.VelocityChange);
+        //    rb.AddForce(camera1.transform.forward * 5000 * Time.deltaTime , ForceMode.VelocityChange);
 
-        }
+        //}
 
 
 
@@ -176,15 +189,15 @@ public class PlayerController : MonoBehaviour
         //float horizontalInput = Input.GetAxis("Mouse X");
         //rb.AddForce(camera1.transform.right * horizontalInput * moveSpeed * Time.deltaTime, ForceMode.Acceleration);
 
-        speed = y * 5  ;
+        
 
         //25
         //15
 
-        if (isGrounded && Input.GetMouseButton(0))
+        if (isGrounded)
         {
 
-            if (y > middleY)
+            if (y > middleY + offSetY)
             {
 
 
@@ -196,7 +209,7 @@ public class PlayerController : MonoBehaviour
 
             }
 
-            else if (y < middleY)
+            else if (y < middleY - offSetY)
             {
 
                 rb.AddForce(-camera1.transform.forward * distanceY * 55 * Time.deltaTime);
@@ -207,22 +220,22 @@ public class PlayerController : MonoBehaviour
 
             }
 
-            if (x > middleX)
+            if (x > middleX + offSetX)
             {
 
 
 
-                rb.AddForce(camera1.transform.right * distanceX * 45 * Time.deltaTime);
+                rb.AddForce(camera1.transform.right * distanceX * 55 * Time.deltaTime);
 
 
                 acceleration = acceleration + 0.005f;
 
             }
 
-            else if (x < middleX)
+            else if (x < middleX - offSetX)
             {
 
-                rb.AddForce(-camera1.transform.right * distanceX * 45 * Time.deltaTime);
+                rb.AddForce(-camera1.transform.right * distanceX * 55 * Time.deltaTime);
 
 
                 acceleration = acceleration + 0.005f;
@@ -249,7 +262,9 @@ public class PlayerController : MonoBehaviour
 
                 rb.velocity = new Vector3(0, 0, 0);
 
+                Cursor.lockState = CursorLockMode.Locked;
 
+                //transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
 
             }
 
@@ -306,8 +321,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-
-
+    
 
 
 
