@@ -47,6 +47,8 @@ public class PlayerController : MonoBehaviour
 
     public bool isGrounded;
 
+    private bool canJump;
+
     private float speed;
 
     public float distanceY;
@@ -141,7 +143,7 @@ public class PlayerController : MonoBehaviour
 
         SpeedTextY.text = "Speed" + moveSpeedY;
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && canJump)
         {
 
 
@@ -151,7 +153,7 @@ public class PlayerController : MonoBehaviour
 
                 isGrounded = false;
 
-            
+                canJump = false;
             
         }
 
@@ -286,9 +288,16 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        
+        if (other.gameObject.CompareTag("JumpGround"))
+        {
 
-        
+            canJump = true;
+
+            isGrounded = true;
+
+        }
+
+
 
 
 
@@ -305,7 +314,15 @@ public class PlayerController : MonoBehaviour
         }
 
 
-    
+        if (collision.gameObject.CompareTag("JumpGround"))
+        {
+
+            canJump = false;
+
+            isGrounded = false;
+
+        }
+
     }
 
     private void OnCollisionStay(Collision collision)
@@ -317,6 +334,17 @@ public class PlayerController : MonoBehaviour
             isGrounded = true;
 
         }
+
+
+        if (collision.gameObject.CompareTag("JumpGround"))
+        {
+
+            canJump = true;
+
+            isGrounded = true;
+
+        }
+
 
     }
 

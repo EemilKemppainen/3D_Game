@@ -6,10 +6,16 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
 
-    public string startGame;
-    
-    
-    
+    public GameObject startButton;
+
+    public GameObject quitButton;
+
+    public GameObject text;
+
+    public GameObject playButton;
+
+    public GameObject note;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +27,9 @@ public class MainMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+            
+
 
 
     }
@@ -29,11 +37,29 @@ public class MainMenu : MonoBehaviour
     public void Play()
     {
 
+        startButton.SetActive(false);
+
+        quitButton.SetActive(false);
+
+        text.SetActive(true);
+
+        playButton.SetActive(true);
+
+        note.SetActive(true);
+
+
+    }
+
+    public void StartGame()
+    {
+
         SceneManager.LoadScene(1);
 
         Cursor.lockState = CursorLockMode.Locked;
 
+
     }
+
 
     public void Quit()
     {

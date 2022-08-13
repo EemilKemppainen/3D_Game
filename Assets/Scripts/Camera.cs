@@ -55,7 +55,7 @@ public class Camera : MonoBehaviour
             //transform.rotation = Quaternion.Euler(X, Y, 0);
         }
 
-        if (Input.GetMouseButton(2) || Input.GetMouseButton(0))
+        if (Input.GetMouseButton(2) || Input.GetMouseButton(1))
         {
 
             Cursor.lockState = CursorLockMode.Locked;

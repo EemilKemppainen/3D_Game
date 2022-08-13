@@ -5,9 +5,10 @@ using UnityEngine;
 public class Warp : MonoBehaviour
 {
 
-    
 
 
+    [SerializeField]
+    private GameObject spawnPoint;
 
     [SerializeField]
     private GameObject start;
@@ -22,6 +23,12 @@ public class Warp : MonoBehaviour
     private GameObject start4;
 
     [SerializeField]
+    private GameObject start5;
+
+    [SerializeField]
+    private GameObject start6;
+
+    [SerializeField]
     private GameObject end;
 
     [SerializeField]
@@ -33,9 +40,11 @@ public class Warp : MonoBehaviour
     [SerializeField]
     private GameObject end4;
 
+    [SerializeField]
+    private GameObject end5;
 
-
-
+    [SerializeField]
+    private GameObject end6;
 
 
     private Rigidbody rb;
@@ -45,6 +54,8 @@ public class Warp : MonoBehaviour
     {
 
         rb = GetComponent<Rigidbody>();
+
+        spawnPoint = GameObject.FindGameObjectWithTag("SpawnPoint");
 
     }
 
@@ -59,6 +70,8 @@ public class Warp : MonoBehaviour
 
             rb.velocity = new Vector3(0, 0, 0);
 
+            spawnPoint.transform.position = end.transform.position;
+
         }
 
 
@@ -69,6 +82,8 @@ public class Warp : MonoBehaviour
 
             rb.velocity = new Vector3(0, 0, 0);
 
+            spawnPoint.transform.position = end2.transform.position;
+
         }
 
         if (Input.GetKey(KeyCode.Alpha3))
@@ -77,6 +92,8 @@ public class Warp : MonoBehaviour
             transform.position = end3.transform.position;
 
             rb.velocity = new Vector3(0, 0, 0);
+
+            spawnPoint.transform.position = end3.transform.position;
 
         }
 
@@ -87,7 +104,32 @@ public class Warp : MonoBehaviour
 
             rb.velocity = new Vector3(0, 0, 0);
 
+            spawnPoint.transform.position = end4.transform.position;
+
         }
+
+        if (Input.GetKey(KeyCode.Alpha5))
+        {
+
+            transform.position = end5.transform.position;
+
+            rb.velocity = new Vector3(0, 0, 0);
+
+            spawnPoint.transform.position = end5.transform.position;
+
+        }
+
+        if (Input.GetKey(KeyCode.Alpha6))
+        {
+
+            transform.position = end6.transform.position;
+
+            rb.velocity = new Vector3(0, 0, 0);
+
+            spawnPoint.transform.position = end6.transform.position;
+
+        }
+
 
     }
 
@@ -100,6 +142,8 @@ public class Warp : MonoBehaviour
             rb.velocity = new Vector3(0, 0, 0);
 
             transform.position = end.transform.position;
+
+            spawnPoint.transform.position = end.transform.position;
 
         }
 
@@ -114,6 +158,8 @@ public class Warp : MonoBehaviour
 
             rb.velocity = new Vector3(0, 0, 0);
 
+            spawnPoint.transform.position = end2.transform.position;
+
         }
 
         if (other.gameObject == start3)
@@ -122,6 +168,8 @@ public class Warp : MonoBehaviour
             transform.position = end3.transform.position;
 
             rb.velocity = new Vector3(0, 0, 0);
+
+            spawnPoint.transform.position = end3.transform.position;
 
         }
 
@@ -132,7 +180,32 @@ public class Warp : MonoBehaviour
 
             rb.velocity = new Vector3(0, 0, 0);
 
+            spawnPoint.transform.position = end4.transform.position;
+
         }
+
+        if (other.gameObject == start5)
+        {
+
+            transform.position = end5.transform.position;
+
+            rb.velocity = new Vector3(0, 0, 0);
+
+            spawnPoint.transform.position = end5.transform.position;
+
+        }
+
+        if (other.gameObject == start6)
+        {
+
+            transform.position = end6.transform.position;
+
+            rb.velocity = new Vector3(0, 0, 0);
+
+            spawnPoint.transform.position = end6.transform.position;
+
+        }
+
 
     }
 
